@@ -1,0 +1,8 @@
+---
+description: Git commit message format — single subject line only
+alwaysApply: true
+---
+
+# Commit Messages
+
+Follow [DEVELOPING.md](../../DEVELOPING.md) § Commit Messages.
