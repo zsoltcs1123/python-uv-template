@@ -185,3 +185,5 @@ credentials.json
 # Backup files
 *.bak
 *.backup
+
+.artifacts

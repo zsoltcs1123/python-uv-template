@@ -32,6 +32,7 @@ repos:
     hooks:
       - id: mypy
         args: [--config-file=mypy.ini]
+        exclude: /tests/
         additional_dependencies: [pytest]
 
   - repo: local
@@ -45,10 +46,24 @@ repos:
         pass_filenames: false
         always_run: true
 
-  - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.10.0
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
     hooks:
-      - id: commitizen
-      - id: commitizen-branch
-        stages: [pre-push]
-        args: ['--allow-abort']  # Allow hook to skip if origin doesn't exist
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args:
+          - --strict
+          - --force-scope
+          - --scopes
+          - your_package,deps,repo
+          - feat
+          - fix
+          - docs
+          - style
+          - refactor
+          - perf
+          - test
+          - build
+          - ci
+          - chore
+          - revert

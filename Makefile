@@ -40,7 +40,7 @@ test-integration: ## Run only integration tests
 check: format lint type-check test ## Run all checks (format, lint, type-check, test)
 
 pre-commit: ## Run all pre-commit hooks
-	uv run pre-commit run --all-files
+	prek run --all-files
 
 clean: ## Clean cache and build artifacts
 	find . -type d -name __pycache__ -exec rm -r {} +

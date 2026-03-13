@@ -105,9 +105,9 @@ if [ -z "$(git config --global user.name)" ]; then
     echo "   git config --global user.email 'your.email@example.com'"
 fi
 
-# Install pre-commit hooks
+# Install pre-commit hooks via prek
 echo "🪝 Installing pre-commit hooks..."
-uv run pre-commit install || echo "Note: Pre-commit hooks installation skipped"
+prek install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push || echo "Note: Pre-commit hooks installation skipped"
 
 echo "✅ Development environment setup complete!"
 echo ""
