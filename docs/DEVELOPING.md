@@ -1,6 +1,6 @@
 # Development Guide
 
-All commands use `uv run`. Works on all platforms.
+Doc index: [DOCS.md](DOCS.md). All commands use `uv run`. Works on all platforms. Canonical gate: `uv run prek run --all-files`.
 
 ## Commands
 

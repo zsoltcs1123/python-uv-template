@@ -3,6 +3,8 @@
 A modern, production-ready Python project template using [uv](https://github.com/astral-sh/uv) for fast dependency management.
 Pre-configured tooling, pre-commit hooks, and agentic coding support out of the box.
 
+Documentation index: [docs/DOCS.md](docs/DOCS.md).
+
 ## Features
 
 - **uv** for fast dependency management and [workspace](https://docs.astral.sh/uv/concepts/projects/workspaces/) support (`packages/`)
@@ -41,7 +43,7 @@ prek install --hook-type pre-commit --hook-type commit-msg
 
 ## Development
 
-See **[DEVELOPING.md](DEVELOPING.md)** for commands, hooks, commit conventions, and configuration details.
+See **[DEVELOPING.md](docs/DEVELOPING.md)** for commands, hooks, commit conventions, and configuration details.
 
 ```bash
 uv run ruff format .     # Format
@@ -65,10 +67,7 @@ your-project/
 
 ## Documentation
 
-- **[Use this template](docs/use-this-template.md)** -- Turn this template into a real project
-- **[DEVELOPING.md](DEVELOPING.md)** -- Development tools and workflows
-- **[AGENTS.md](AGENTS.md)** -- AI coding agent guidance
-- **`.cursor/rules/`** -- Python and testing standards
+See [docs/DOCS.md](docs/DOCS.md) for the full map. Agent entry point: [AGENTS.md](AGENTS.md).
 
 ## License
 

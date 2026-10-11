@@ -82,15 +82,14 @@ The template docs describe the template itself. Strip that framing so the repo r
 - Replace the title `# Python UV Template` and the template description with your project's name and purpose.
 - Delete the **"Use this template" / Setup** numbered steps (steps 1–5 under Quick Start) — they no longer apply once setup is done. Keep a normal install/usage section instead.
 - In **Project Structure**, change `your-project/` and `src/your_package/` to your real names, and drop the `(rename for your project)` annotation.
-- Remove the link to this guide (`docs/use-this-template.md`) from the Documentation section.
+- Point **Documentation** at [docs/DOCS.md](DOCS.md) as the index (keep [AGENTS.md](../AGENTS.md) as the agent entry point if you mention it).
+- Remove the `use-this-template.md` row from the map in `docs/DOCS.md`.
 - Replace `[Your License Here]` with your actual license (and add a `LICENSE` file).
 - Trim the **Features** list to what your project actually ships.
 
 ### `AGENTS.md`
 
-- Replace the `**your-package**` line with your project's name and a one-line description.
-- Update `src/your_package/` to `src/my_package/`.
-- Remove the link to this guide.
+No template placeholders remain in `AGENTS.md`; leave it as the orientation pointer to `docs/DOCS.md` unless you add project-specific agent notes.
 
 ## 9. Final sweep
 
@@ -106,10 +105,12 @@ grep -rIn -e your_package -e your-package -e your-project \
 
 ## 10. Delete this guide
 
-Once the sweep is clean, remove this file and the empty `docs/.gitkeep` if no longer needed:
+Once the sweep is clean, remove this file and its row from `docs/DOCS.md`:
 
 ```bash
 rm docs/use-this-template.md
 ```
+
+Edit `docs/DOCS.md` to delete the `use-this-template.md` table row.
 
 Setup complete. Commit with a conventional message, e.g. `chore(repo): initialize project from template`.
