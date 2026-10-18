@@ -15,7 +15,7 @@ Documentation index: [docs/DOCS.md](docs/DOCS.md).
 - **conventional-pre-commit** for commit message validation with required scopes
 - **Commitizen** for version bumping and changelog generation
 - **Makefile** wrappers for common `uv run` commands
-- **GitHub Actions** CI and **Dependabot** for uv and GitHub Actions updates
+- **GitHub Actions** CI (off until you enable triggers) and **Dependabot** for uv and GitHub Actions updates
 - **Dev Containers** with Python 3.14, zsh, Oh My Zsh, and Powerlevel10k
 - **Agent support** via `AGENTS.md` and `.cursor/rules/`
 

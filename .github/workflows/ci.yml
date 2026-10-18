@@ -1,11 +1,12 @@
 name: CI
 
+# Uncomment push/pull_request when you want CI on GitHub. workflow_dispatch stays for manual runs.
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
   workflow_dispatch:
+# push:
+#   branches: [main, master]
+# pull_request:
+#   branches: [main, master]
 
 permissions:
   contents: read
@@ -28,3 +29,9 @@ jobs:
 
       - name: Run prek
         run: uv run --frozen prek run --all-files
+
+      - name: Integration tests
+        # Add service containers, CLIs, and env here when you add integration tests.
+        # Match what those tests need locally (minus optional pytest.skip paths).
+        run: >-
+          bash -c 'uv run pytest -m integration; c=$?; [ "$c" -eq 5 ] && exit 0; exit $c'

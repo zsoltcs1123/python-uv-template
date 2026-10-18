@@ -66,17 +66,6 @@ repos:
         pass_filenames: false
         always_run: true
 
-      - id: pytest-integration
-        name: pytest (integration)
-        # Exit code 5 (no tests collected) is treated as success so the hook
-        # passes on projects that have no integration tests yet.
-        entry: >-
-          bash -c 'uv run pytest -m integration; c=$?; [ "$c" -eq 5 ] && exit 0; exit $c'
-        language: system
-        types: [python]
-        pass_filenames: false
-        always_run: true
-
   - repo: local
     hooks:
       - id: commit-message-line-length

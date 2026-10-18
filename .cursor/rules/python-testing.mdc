@@ -5,32 +5,31 @@ alwaysApply: false
 
 # Testing Standards
 
-## Test Organization
+## Unit vs integration
 
-- **Mirror source structure** - Tests live in `tests/` under each package, mirroring the source structure
-- **Test markers** - Categorize every test with a marker:
-  - `@pytest.mark.unit` - Fast, no I/O
-  - `@pytest.mark.integration` - Requires services or real I/O
-  - `@pytest.mark.slow` - Long-running tests
-  - `@pytest.mark.api` - API endpoint tests
+| Prefer unit | Prefer integration |
+|-------------|-------------------|
+| Pure logic, parsing, validation | Real databases, queues, HTTP servers, or OS services |
+| JSON and files under `tmp_path` | Permissions, catalogs, wire protocols, subprocess to a real binary |
+| CLI parsing, env guards, exit codes (monkeypatch **third-party** only) | Subprocess wiring, real binary on `PATH`, real external responses |
+| String or file checks on bundled artifacts you ship | End-to-end paths through those artifacts |
+
+- Mirror `src/` and `packages/` under `tests/unit/` and `tests/integration/`. Path and marker must match (`@pytest.mark.unit` / `@pytest.mark.integration`; also `@pytest.mark.slow`, `@pytest.mark.api` in `pytest.ini`).
+- Do not reimplement an external system in unit tests (fake SQL engines, fake HTTP servers that mirror production). Inject at your boundary or use the real engine in integration (e.g. `sqlite3.connect(":memory:")` + migrations when the app uses SQLite). Prefer one integration test on observable state over a large fake.
+- prek runs unit tests only. Integration runs in CI when enabled: add the same dependencies in `.github/workflows/ci.yml` (service containers, CLIs, env). Uncomment workflow `on:` to turn CI on. `pytest.skip()` when a dep is missing locally; CI must not skip on main.
 
 ## Style
 
-- **No docstrings** on tests - Test names should be self-explanatory
-- **No comments** - Clear test structure makes comments unnecessary
-- **Descriptive names** - `test_<subject>_<expected_behavior>_when_<condition>`
-- **Mock external dependencies** - Use `unittest.mock` or `pytest-mock`, never make real API/DB calls in unit tests
+- No docstrings or comments on tests. Names: `test_<subject>_<expected_behavior>_when_<condition>`.
+- In unit tests, use `unittest.mock` or `pytest-mock` on third-party boundaries, not real API/DB I/O.
 
 ## What to Test (and What Not To)
 
-- **Don't test language features** - Do not write tests that verify standard library or language behavior (dataclass defaults, dict construction, import availability, `callable()` checks). Only test logic, constraints, or integrations that _we_ defined. If removing the test wouldn't risk missing a regression in _our_ code, the test shouldn't exist.
-- **Test behavior, not implementation** - Focus on what the code does, not how
-- **Prioritize constraints and business rules** - Validation logic, edge cases, error handling
-- **Use parametrize** to cover boundary values without duplicating test bodies
+- Do not test language features or stdlib behavior (dataclass defaults, dict construction, import availability, `callable()` checks). Test only logic, constraints, and integrations _we_ defined. If removing the test would not risk a regression in _our_ code, delete it.
+- Test behavior, not implementation. Prioritize validation, edge cases, and error handling. Use `parametrize` for boundary values.
 
 ## Forbidden Patterns
 
-- **No `monkeypatch.setattr` against first-party modules** - Patching attributes on your own project's modules (`monkeypatch.setattr(my_package.foo, "bar", fake)`) tests wiring, not behavior. It couples tests to import topology and breaks on innocuous refactors. Patching is only acceptable for stdlib boundaries (e.g. `time.sleep`) or external libraries you do not own.
-- **No `importlib.import_module` as a patch anchor** - If a test uses `importlib.import_module("my_package.x")` to obtain a handle for later patching, delete it. Use direct `from my_package.x import thing` and either test the function purely, or use a real in-memory fixture (e.g. the shared `conn` fixture for SQLite).
-- **Prefer real fakes over mocks** - For DB-backed logic, use a shared `conn` fixture (`sqlite3.connect(":memory:")` + migrations). Such tests should be marked `@pytest.mark.integration`, not `@pytest.mark.unit`. Pure functions stay in unit tests with no fixtures.
-- **No tests of wiring/dispatch** - Do not write a test whose only assertion is "function A called collaborator B with arguments X". If the dispatch logic is worth testing, test it via its observable effect through the public API.
+- No `monkeypatch.setattr` on first-party modules (`monkeypatch.setattr(my_package.foo, "bar", fake)` couples tests to import topology). Patching is OK on stdlib or third-party (e.g. `time.sleep`).
+- No `importlib.import_module` as a patch anchor. Import directly; test purely in unit or with a real integration fixture (e.g. shared `conn`).
+- No tests whose only assertion is that function A called collaborator B with arguments X. Assert observable effects through the public API.

@@ -16,6 +16,8 @@ uv run pytest --cov=src --cov=packages                  # Tests with coverage
 uv run prek run --all-files                             # Canonical gate
 ```
 
+Unit vs integration split and CI integration deps: `.cursor/rules/python-testing.mdc`.
+
 A `Makefile` wraps the same `uv run` commands (`make check`, `make test`, etc.).
 
 ## Pre-commit
@@ -57,7 +59,7 @@ Config: `pyproject.toml` → `[tool.commitizen]`.
 | `mypy.ini`                 | Type checking                                |
 | `pytest.ini`               | Test discovery and markers                   |
 | `.pre-commit-config.yaml`  | Pre-commit hooks                             |
-| `.github/workflows/ci.yml` | CI: same prek gate, frozen lock              |
+| `.github/workflows/ci.yml` | CI (disabled by default): prek + integration tests |
 | `.github/dependabot.yml`   | Weekly uv and Actions version-update PRs     |
 | `.editorconfig`            | Editor formatting consistency                |
 | `.secrets.baseline`        | Secret detection false positives             |
@@ -70,8 +72,8 @@ When a function exceeds the limit, split it into smaller helpers rather than rai
 
 ## CI and dependency updates
 
-GitHub Actions runs `uv run --frozen prek run --all-files` on push and pull requests to `main` / `master`. No automerge. No Codecov (needs a separate account).
+GitHub Actions workflow is present but off by default: only `workflow_dispatch` runs until you uncomment `push` / `pull_request` in `.github/workflows/ci.yml`. The job runs `uv run --frozen prek run --all-files` (unit tests via prek) and then `pytest -m integration`. No automerge. No Codecov (needs a separate account).
 
 Dependabot opens weekly version-update PRs for `uv` and GitHub Actions (Monday 09:00 UTC). Python majors are ignored; minors/patches are grouped. Security alerts are a separate GitHub setting, not this file.
 
-Detailed Python and testing standards: `.cursor/rules/python.mdc`, `.cursor/rules/python-testing.mdc`.
+Python style and test standards: `.cursor/rules/python.mdc`, `.cursor/rules/python-testing.mdc`.

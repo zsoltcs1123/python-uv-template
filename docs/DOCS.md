@@ -10,7 +10,7 @@ Map and rules for markdown docs in this repo.
 | [PRINCIPLES.md](PRINCIPLES.md)               | Engineering principles for code changes       | **Always**                                          |
 | [DEVELOPING.md](DEVELOPING.md)               | Local workflow, prek, commits, CI             | You develop or test locally, or touch CI or tooling |
 | [use-this-template.md](use-this-template.md) | Bootstrap from the GitHub template            | You are turning the template into a real project    |
-| `.cursor/rules/`                             | Detailed Python and testing standards         | You edit Python or tests                            |
+| `.cursor/rules/`                             | Python style; unit vs integration and test code | You edit Python or tests                            |
 
 ## Rules
 
