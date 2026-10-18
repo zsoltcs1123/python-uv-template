@@ -77,6 +77,18 @@ repos:
         pass_filenames: false
         always_run: true
 
+  - repo: local
+    hooks:
+      - id: commit-message-line-length
+        name: commit message line length (108)
+        entry: >-
+          bash -c 'f="$1"; line=$(sed "/^#/d" "$f" | head -n1 | tr -d "\r");
+          len=${#line}; if [ "$len" -gt 108 ]; then
+          echo "Commit first line is $len characters (max 108): $line"; exit 1; fi' --
+        language: system
+        stages: [commit-msg]
+        pass_filenames: true
+
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
     hooks:

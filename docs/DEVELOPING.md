@@ -32,7 +32,7 @@ uv run prek install --hook-type pre-commit --hook-type commit-msg
 [Conventional Commits](https://www.conventionalcommits.org/) with required scopes. Allowed types and scopes: `.pre-commit-config.yaml` (`conventional-pre-commit` hook).
 
 - One line only: `{type}({scope}): {description}`. No body, no blank line after the subject.
-- Description: imperative mood, lowercase start, no trailing period, max 72 characters.
+- First line: max 108 characters total. Description: imperative mood, lowercase start, no trailing period.
 
 Example: `feat(your_package): add greeting command`
 

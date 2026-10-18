@@ -52,6 +52,7 @@ exclude_lines = [
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.1.0"
+message_length_limit = 108
 version_files = [
     "pyproject.toml:version",
     "src/your_package/__init__.py:__version__",
