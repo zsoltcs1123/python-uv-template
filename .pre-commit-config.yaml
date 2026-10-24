@@ -37,6 +37,14 @@ repos:
         pass_filenames: false
         always_run: true
 
+      - id: pyright
+        name: pyright
+        entry: uv run pyright
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
+
       # Architectural import-boundary enforcement. Disabled by default: a fresh
       # project has no architecture to constrain yet. Add an `.importlinter`
       # contract and `import-linter` dev dependency, then uncomment to enable.

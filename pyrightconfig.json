@@ -1,0 +1,21 @@
+{
+  "include": ["src"],
+  "exclude": [
+    "**/.git",
+    "**/.venv",
+    "**/__pycache__",
+    "**/.mypy_cache",
+    "**/.ruff_cache",
+    "**/dist",
+    "**/build",
+    "**/*.egg-info",
+    "**/tests",
+    "**/main.py"
+  ],
+  "extraPaths": ["src"],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.14",
+  "pythonPlatform": "Linux",
+  "typeCheckingMode": "standard"
+}

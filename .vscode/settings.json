@@ -23,5 +23,5 @@
     "**/__pycache__": true,
     "**/*.pyc": true
   },
-  "cursorpyright.analysis.typeCheckingMode": "basic"
+  "python.analysis.extraPaths": ["src"]
 }

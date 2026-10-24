@@ -22,8 +22,9 @@ lint: ## Lint code with Ruff
 lint-fix: ## Lint and auto-fix code with Ruff
 	uv run ruff check --fix .
 
-type-check: ## Run type checking with Mypy
+type-check: ## Run type checking (mypy + pyright)
 	uv run mypy .
+	uv run pyright
 
 test: ## Run tests
 	uv run pytest
